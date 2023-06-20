@@ -29,7 +29,6 @@
 import random
 from typing import Any
 
-
 import metricq
 from metricq.logging import get_logger
 
@@ -39,19 +38,16 @@ logger = get_logger()
 
 
 class ExampleSource(metricq.IntervalSource):
-    def __init__(self, *args: Any, **kwargs: Any):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         logger.info("initializing ExampleSource")
         super().__init__(*args, client_version=client_version, **kwargs)
 
     @metricq.rpc_handler("config")
-    async def _on_config(self, **config: Any) -> None:
+    async def _on_config(self, rate: float, **config: Any) -> None:
         logger.info("ExampleSource received config: {}", config)
 
-        # Set the update period
-        rate = config["rate"]
-        self.period = 1 / rate
+        self.period = 1 / rate  # type: ignore #  https://github.com/python/mypy/issues/3004
 
-        # Supply some metadata for the metric declared below
         metadata = {
             "rate": rate,
             "description": "A simple example metric providing random values, sent from a python ExampleSource",

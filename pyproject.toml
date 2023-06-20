@@ -1,32 +1,9 @@
 [build-system]
-requires = ["setuptools>=42", "wheel", "setuptools_scm[toml]~=6.0"]
+requires = ["setuptools>=56.0.0", "setuptools_scm[toml]~=7.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.black]
-line-length = 88
-target_version = ['py310']
-include = '\.pyi?$'
-exclude = '''
-
-(
-  /(
-      \.eggs         # exclude a few common directories in the
-    | \.git          # root of the project
-    | \.hg
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | _build
-    | buck-out
-    | build
-    | dist
-    | venv
-    | lib
-    | src
-    | include
-  )/
-)
-'''
+# The default is just fine
 
 [tool.isort]
 multi_line_output = 3
