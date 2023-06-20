@@ -14,7 +14,7 @@ WORKDIR /home/metricq/metricq-source-example
 # This is the simplest solution to make sure we only build good packages
 # If you don't like this, go ahead and build better github actions / workflows
 RUN pip install --user tox
-RUN tox
+RUN /home/metricq/.local/bin/tox
 
 RUN pip install --user .
 
