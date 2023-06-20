@@ -31,10 +31,9 @@ import logging
 import click
 import click_completion  # type: ignore
 import click_log  # type: ignore
-
 from metricq.logging import get_logger
 
-from .example_source import ExampleSource
+from .source import ExampleSource
 
 logger = get_logger("ExampleSource")
 
@@ -48,9 +47,9 @@ click_completion.init()
 
 
 @click.command()
-@click.argument("url")
+@click.option("--server")
 @click.option("--token", default="source-example")
-@click_log.simple_verbosity_option(logger)
-def run(url, token):
-    src = ExampleSource(management_url=url, token=token)
+@click_log.simple_verbosity_option(logger)  # type: ignore
+def run(server, token) -> None:
+    src = ExampleSource(url=server, token=token)
     src.run()
